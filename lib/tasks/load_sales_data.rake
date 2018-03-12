@@ -30,7 +30,12 @@ namespace :load_sales_data do
 
   desc "TODO"
   task load_merchants: :environment do
-
+    CSV.foreach('db/data/merchants.csv', OPTIONS) do |row|
+      Merchant.create!(id: row[:id].to_i,
+                       name: row[:name],
+                       created_at: DateTime.strptime(row[:created_at], '%Y-%m-%d %H:%M:%S'),
+                       updated_at: DateTime.strptime(row[:updated_at], '%Y-%m-%d %H:%M:%S'))
+    end
   end
 
   desc "TODO"
