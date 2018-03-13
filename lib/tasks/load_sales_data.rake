@@ -15,7 +15,15 @@ namespace :load_sales_data do
 
   desc "TODO"
   task load_invoice_items: :environment do
-
+    CSV.foreach('db/data/invoice_items.csv', OPTIONS) do |row|
+      InvoiceItem.create!(id: row[:id].to_i,
+                          invoice_id: row[:invoice_id].to_i,
+                          item_id: row[:item_id].to_i,
+                          quantity: row[:quantity].to_i,
+                          unit_price: row[:unit_price].to_i,
+                          created_at: DateTime.strptime(row[:created_at], '%Y-%m-%d %H:%M:%S'),
+                          updated_at: DateTime.strptime(row[:updated_at], '%Y-%m-%d %H:%M:%S'))
+    end
   end
 
   desc "TODO"
