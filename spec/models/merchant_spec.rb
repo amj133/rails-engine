@@ -7,6 +7,10 @@ RSpec.describe Merchant, type: :model do
     it {should validate_presence_of(:updated_at)}
   end
 
+  describe "Relationships" do
+    it {should have_many(:invoices)}
+  end
+
   describe "Class methods" do
     before(:each) do
       @top_merchant = create(:merchant)
