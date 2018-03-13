@@ -11,8 +11,13 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   namespace :api do
     namespace :v1 do
+      namespace :merchants do
+        get '/:id/revenue', to: 'merchant_revenue#index'
+        get '/find', to: 'finder#show'
+        get '/find_all', to: 'finder#index'
+        get '/random', to: 'random#show'
+      end
       resources :merchants, only: [:show, :index]
     end
   end
-
 end

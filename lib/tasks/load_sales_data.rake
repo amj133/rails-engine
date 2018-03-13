@@ -4,6 +4,7 @@ namespace :load_sales_data do
 
   desc "TODO"
   task load_customers: :environment do
+    Customer.destroy_all
     CSV.foreach('db/data/customers.csv', OPTIONS) do |row|
       Customer.create!(id: row[:id].to_i,
                        first_name: row[:first_name],
@@ -15,6 +16,7 @@ namespace :load_sales_data do
 
   desc "TODO"
   task load_invoice_items: :environment do
+    InvoiceItem.destroy_all
     CSV.foreach('db/data/invoice_items.csv', OPTIONS) do |row|
       InvoiceItem.create!(id: row[:id].to_i,
                           invoice_id: row[:invoice_id].to_i,
@@ -28,6 +30,7 @@ namespace :load_sales_data do
 
   desc "TODO"
   task load_invoices: :environment do
+    Invoice.destroy_all
     CSV.foreach('db/data/invoices.csv', OPTIONS) do |row|
       Invoice.create!(id: row[:id].to_i,
                       merchant_id: row[:merchant_id].to_i,
@@ -40,6 +43,7 @@ namespace :load_sales_data do
 
   desc "TODO"
   task load_items: :environment do
+    Item.destroy_all
     CSV.foreach('db/data/items.csv', OPTIONS) do |row|
       Item.create!(id: row[:id].to_i,
                    name: row[:name],
@@ -53,6 +57,7 @@ namespace :load_sales_data do
 
   desc "TODO"
   task load_merchants: :environment do
+    Merchant.destroy_all
     CSV.foreach('db/data/merchants.csv', OPTIONS) do |row|
       Merchant.create!(id: row[:id].to_i,
                        name: row[:name],
@@ -63,6 +68,7 @@ namespace :load_sales_data do
 
   desc "TODO"
   task load_transactions: :environment do
+    Transaction.destroy_all
     CSV.foreach('db/data/transactions.csv', OPTIONS) do |row|
       Transaction.create!(id: row[:id].to_i,
                           invoice_id: row[:invoice_id].to_i,
