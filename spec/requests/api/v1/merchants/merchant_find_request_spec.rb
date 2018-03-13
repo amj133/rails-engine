@@ -34,7 +34,7 @@ describe "Merchant Finder API" do
   end
 
   it 'returns all merchants by name' do
-    get '/api/v1/merchants/find_all?name=Liversinklepim'
+    get '/api/v1/merchants/find_all?name=liversinklepim'
 
     merchants = JSON.parse(response.body)
 
