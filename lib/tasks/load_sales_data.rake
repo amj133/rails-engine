@@ -55,7 +55,14 @@ namespace :load_sales_data do
 
   desc "TODO"
   task load_transactions: :environment do
-
+    CSV.foreach('db/data/transactions.csv', OPTIONS) do |row|
+      Transaction.create!(id: row[:id].to_i,
+                          invoice_id: row[:invoice_id].to_i,
+                          result: row[:result],
+                          credit_card_number: row[:credit_card_number].to_i,
+                          created_at: DateTime.strptime(row[:created_at], '%Y-%m-%d %H:%M:%S'),
+                          updated_at: DateTime.strptime(row[:updated_at], '%Y-%m-%d %H:%M:%S'))
+    end
   end
 
 end
