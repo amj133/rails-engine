@@ -20,19 +20,26 @@ namespace :load_sales_data do
 
   desc "TODO"
   task load_invoices: :environment do
-
+    CSV.foreach('db/data/invoices.csv', OPTIONS) do |row|
+      Invoice.create!(id: row[:id].to_i,
+                      merchant_id: row[:merchant_id].to_i,
+                      customer_id: row[:customer_id].to_i,
+                      status: row[:status],
+                      created_at: DateTime.strptime(row[:created_at], '%Y-%m-%d %H:%M:%S'),
+                      updated_at: DateTime.strptime(row[:updated_at], '%Y-%m-%d %H:%M:%S'))
+    end
   end
 
   desc "TODO"
   task load_items: :environment do
     CSV.foreach('db/data/items.csv', OPTIONS) do |row|
       Item.create!(id: row[:id].to_i,
-                       name: row[:name],
-                       merchant_id: row[:merchant_id].to_i, 
-                       description: row[:description],
-                       unit_price: row[:unit_price].to_i,
-                       created_at: DateTime.strptime(row[:created_at], '%Y-%m-%d %H:%M:%S'),
-                       updated_at: DateTime.strptime(row[:updated_at], '%Y-%m-%d %H:%M:%S'))
+                   name: row[:name],
+                   merchant_id: row[:merchant_id].to_i,
+                   description: row[:description],
+                   unit_price: row[:unit_price].to_i,
+                   created_at: DateTime.strptime(row[:created_at], '%Y-%m-%d %H:%M:%S'),
+                   updated_at: DateTime.strptime(row[:updated_at], '%Y-%m-%d %H:%M:%S'))
     end
   end
 
