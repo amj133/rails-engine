@@ -9,7 +9,7 @@ describe "Merchants Revenue API" do
     create(:invoice_item, invoice: invoice, item: item, quantity: 5, unit_price: 200)
     create(:transaction, invoice: invoice)
   end
-  it "should return total revenue for a merchant" do
+  xit "should return total revenue for a merchant" do
     get '/api/v1/merchants/1/revenue'
 
     expect(response).to be_success

@@ -70,4 +70,14 @@ describe "Merchant Finder API" do
       expect(merchant['created_at']).to eq('2013-05-23T17:03:15.000Z')
     end
   end
+
+  it 'returns a single merchant by id' do
+    get '/api/v1/merchants/find?id=2'
+    
+    expect(response).to be_success
+
+    merchant = JSON.parse(response.body)
+
+    expect(merchant['id']).to eq(2)
+  end
 end
