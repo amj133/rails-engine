@@ -14,6 +14,7 @@ describe "Invoices API" do
 
     expect(invoices.count).to eq(3)
     expect(invoices.first["id"]).to eq(1)
+    expect(invoices.last["id"]).to eq(3)
   end
 
   it "can get one invoice by its id" do
