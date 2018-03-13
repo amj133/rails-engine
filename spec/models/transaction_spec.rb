@@ -11,4 +11,18 @@ RSpec.describe Transaction, type: :model do
   describe "Relationships" do
     it {should belong_to(:invoice)}
   end
+
+  describe "Scopes" do
+    it "default scope returns successful transactions" do
+      customer = create(:customer)
+      merchant = create(:merchant)
+      invoice = create(:invoice, customer: customer, merchant: merchant)
+      transaction_1 = create(:transaction, result: "success", invoice: invoice)
+      transaction_2 = create(:transaction, result: "failed", invoice: invoice)
+      transaction_3 = create(:transaction, result: "pending", invoice: invoice)
+      transaction_4 = create(:transaction, result: "success", invoice: invoice)
+
+      expect(Transaction.all).to eq([transaction_1, transaction_4])
+    end
+  end
 end
