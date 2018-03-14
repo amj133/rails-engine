@@ -15,14 +15,4 @@ RSpec.describe Item, type: :model do
     it {should have_many(:invoices).through(:invoice_items)}
   end
 
-  describe "Class methods" do
-    it "#formatted_price returns price as float" do
-      merchant = create(:merchant)
-      item = create(:item,
-                    unit_price: 2345,
-                    merchant: merchant)
-
-      expect(item.formatted_price).to eq(23.45)
-    end
-  end
 end

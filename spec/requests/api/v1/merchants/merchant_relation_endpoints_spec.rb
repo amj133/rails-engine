@@ -15,9 +15,9 @@ describe "Relationship endpoints for merchants" do
 
     expect(merchant_items.count).to eq(2)
     expect(merchant_items.first["id"]).to eq(1)
-    expect(merchant_items.first["name"]).to eq(nil)
+    expect(merchant_items.first["name"]).to eq("MyString")
     expect(merchant_items.last["id"]).to eq(2)
-    expect(merchant_items.last["name"]).to eq(nil)
+    expect(merchant_items.last["name"]).to eq("MyString")
   end
 
   it "returns a collection of invoices for a given merchant" do
@@ -27,9 +27,7 @@ describe "Relationship endpoints for merchants" do
 
     expect(merchant_invoices.count).to eq(2)
     expect(merchant_invoices.first["id"]).to eq(1)
-    expect(merchant_invoices.first["name"]).to eq(nil)
     expect(merchant_invoices.last["id"]).to eq(2)
-    expect(merchant_invoices.last["name"]).to eq(nil)
   end
 
 end

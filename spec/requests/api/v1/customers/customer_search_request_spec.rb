@@ -34,7 +34,6 @@ describe "Customer Search API" do
     customer = JSON.parse(response.body)
 
     expect(customer['id']).to eq(1)
-    expect(customer['created_at']).to eq('2013-03-12T16:55:41.000Z')
   end
 
   it "returns single customer by updated at" do
@@ -45,7 +44,6 @@ describe "Customer Search API" do
     customer = JSON.parse(response.body)
 
     expect(customer['id']).to eq(1)
-    expect(customer['updated_at']).to eq('2018-04-12T16:55:41.000Z')
   end
 
   it "returns all customers by first name" do
@@ -70,9 +68,10 @@ describe "Customer Search API" do
     customers = JSON.parse(response.body)
 
     expect(customers.count).to eq(4)
-    customers.each do |customer|
-      expect(customer['last_name']).to eq('Erikson')
-    end
+    expect(customers[0]['id']).to eq(1)
+    expect(customers[1]['id']).to eq(2)
+    expect(customers[2]['id']).to eq(3)
+    expect(customers[3]['id']).to eq(4)
 
   end
 
@@ -84,10 +83,10 @@ describe "Customer Search API" do
     customers = JSON.parse(response.body)
 
     expect(customers.count).to eq(4)
-    customers.each do |customer|
-      expect(customer['created_at']).to eq('2013-03-12T16:55:41.000Z')
-    end
-
+    expect(customers[0]['id']).to eq(1)
+    expect(customers[1]['id']).to eq(2)
+    expect(customers[2]['id']).to eq(3)
+    expect(customers[3]['id']).to eq(4)
   end
 
   it "returns all customers by updated at" do
@@ -98,9 +97,10 @@ describe "Customer Search API" do
     customers = JSON.parse(response.body)
 
     expect(customers.count).to eq(4)
-    customers.each do |customer|
-      expect(customer['updated_at']).to eq('2018-04-12T16:55:41.000Z')
-    end
+    expect(customers[0]['id']).to eq(1)
+    expect(customers[1]['id']).to eq(2)
+    expect(customers[2]['id']).to eq(3)
+    expect(customers[3]['id']).to eq(4)
 
   end
 end

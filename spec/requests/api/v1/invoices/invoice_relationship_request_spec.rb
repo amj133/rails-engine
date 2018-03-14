@@ -44,11 +44,11 @@ describe "Invoice Relationship Endpoint Specs" do
 
     expect(items.count).to eq(2)
     expect(items[0]['id']).to eq(1)
-    expect(items[0]['name']).to eq(nil)
+    expect(items[0]['name']).to eq('MyString')
     expect(items[0]['merchant_id']).to eq(1)
     expect(items[1]['id']).to eq(2)
-    expect(items[1]['name']).to eq(nil)
-    expect(items[0]['merchant_id']).to eq(1)
+    expect(items[1]['name']).to eq('MyString')
+    expect(items[1]['merchant_id']).to eq(1)
   end
 
   it "should return related invoice items" do
@@ -59,10 +59,11 @@ describe "Invoice Relationship Endpoint Specs" do
     invoice_items = JSON.parse(response.body)
 
     expect(invoice_items.count).to eq(2)
-    expect(invoice_items[0]['id']).to eq(1)
-    expect(invoice_items[0]['unit_price']).to eq(nil)
-    expect(invoice_items[1]['id']).to eq(2)
-    expect(invoice_items[1]['unit_price']).to eq(nil)
+    invoice_items.each do |invoice_item|
+      expect(invoice_item['item_id']).to_not eq(nil)
+      expect(invoice_item['quantity']).to eq(1)
+      expect(invoice_item['unit_price']).to eq(1)
+    end 
   end
 
   it "should return related transactions" do
@@ -73,13 +74,10 @@ describe "Invoice Relationship Endpoint Specs" do
     transactions = JSON.parse(response.body)
 
     expect(transactions.count).to eq(4)
-    expect(transactions[0]['id']).to eq(1)
-    expect(transactions[0]['result']).to eq(nil)
-    expect(transactions[1]['id']).to eq(2)
-    expect(transactions[1]['result']).to eq(nil)
-    expect(transactions[2]['id']).to eq(3)
-    expect(transactions[2]['result']).to eq(nil)
-    expect(transactions[3]['id']).to eq(4)
-    expect(transactions[3]['result']).to eq(nil)
+    transactions.each do |transaction|
+      expect(transaction['invoice_id']).to eq(1)
+      expect(transaction['result']).to eq('success')
+      expect(transaction['credit_card_number']).to eq(231412341341341)
+    end
   end
 end
