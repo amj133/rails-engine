@@ -8,7 +8,13 @@ Rails.application.routes.draw do
         get '/find_all', to: "search#index"
         get '/random', to: 'random#show'
       end
-      resources :invoices, only: [:index, :show]
+      resources :invoices, only: [:index, :show], module: :invoices do
+        get '/merchant', to: 'merchant#show'
+        get '/customer', to: 'customer#show'
+        get '/transactions', to: 'transactions#index'
+        get '/invoice_items', to: 'invoice_items#index'
+        get '/items', to: 'items#index'
+      end
 
       namespace :items do
         get '/find', to: "search#show"

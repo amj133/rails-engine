@@ -62,9 +62,9 @@ describe "Transaction Search Api" do
     transactions = JSON.parse(response.body)
 
     expect(transactions.count).to eq(3)
-    transactions.each do |transaction|
-      expect(transaction['created_at']).to eq('2015-03-12T17:21:52.000Z')
-    end
+    expect(transactions[0]['id']).to eq(1)
+    expect(transactions[1]['id']).to eq(2)
+    expect(transactions[2]['id']).to eq(3)
   end
 
   it "returns all transactions by updated at" do
@@ -75,8 +75,8 @@ describe "Transaction Search Api" do
     transactions = JSON.parse(response.body)
 
     expect(transactions.count).to eq(3)
-    transactions.each do |transaction|
-      expect(transaction['updated_at']).to eq('2018-03-12T17:21:52.000Z')
-    end
+    expect(transactions[0]['id']).to eq(1)
+    expect(transactions[1]['id']).to eq(2)
+    expect(transactions[2]['id']).to eq(3)
   end
 end

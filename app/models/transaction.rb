@@ -4,9 +4,4 @@ class Transaction < ApplicationRecord
 
   scope :successful, -> { where(result: "success") }
 
-  def self.random
-    order('RANDOM()').first
-  end
-
-
 end

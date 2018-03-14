@@ -8,7 +8,4 @@ class Item < ApplicationRecord
     order('RANDOM()').first
   end
 
-  def formatted_price
-    (unit_price / 100.0).round(2)
-  end
 end
