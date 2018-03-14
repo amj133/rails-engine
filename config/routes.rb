@@ -1,16 +1,14 @@
 Rails.application.routes.draw do
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   namespace :api do
     namespace :v1 do
+
       namespace :invoices do
         get '/find', to: "search#show"
         get '/find_all', to: "search#index"
       end
       resources :invoices, only: [:index, :show]
-    end
-  end
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  namespace :api do
-    namespace :v1 do
+
       namespace :merchants do
         get '/:id/revenue', to: 'merchant_revenue#index'
         get '/find', to: 'finder#show'
@@ -19,6 +17,14 @@ Rails.application.routes.draw do
         get '/most_revenue', to: "most_revenue#index"
       end
       resources :merchants, only: [:show, :index]
+
+      namespace :transactions do
+        get '/find', to: 'search#show'
+        get '/find_all', to: 'search#index'
+        get '/random', to: 'random#show'
+      end
+      resources :transactions, only: [:show, :index]
+      
     end
   end
 end
