@@ -1,3 +1,3 @@
 class SimpleItemSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :id, :merchant_id
 end
