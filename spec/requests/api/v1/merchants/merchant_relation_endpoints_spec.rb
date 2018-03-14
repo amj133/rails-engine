@@ -12,6 +12,8 @@ describe "Relationship endpoints for merchants" do
 
     expect(merchant_items.count).to eq(2)
     expect(merchant_items.first["id"]).to eq(1)
+    expect(merchant_items.first["name"]).to eq(nil)
     expect(merchant_items.last["id"]).to eq(2)
+    expect(merchant_items.last["name"]).to eq(nil)
   end
 end
