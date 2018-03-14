@@ -9,7 +9,35 @@ RSpec.describe Merchant, type: :model do
 
   describe "Relationships" do
     it {should have_many(:invoices)}
+    it {should have_many(:customers).through(:invoices)}
     it {should have_many(:items)}
+  end
+
+  describe "Instance methods" do
+    before(:each) do
+      @favorite_customer = create(:customer)
+      regular_customer = create(:customer)
+      @merchant = create(:merchant)
+      invoice_1 = create(:invoice,
+                         customer: @favorite_customer,
+                         merchant: @merchant)
+      invoice_2 = create(:invoice,
+                         customer: regular_customer,
+                         merchant: @merchant)
+      invoice_3 = create(:invoice,
+                         customer: @favorite_customer,
+                         merchant: @merchant)
+      create(:transaction, invoice: invoice_1)
+      create(:transaction, invoice: invoice_2)
+      create(:transaction, invoice: invoice_3)
+      create(:transaction, invoice: invoice_3, result: "failed")
+    end
+
+    describe "#favorite_customer" do
+      it "returns customer with highest successful transactions" do
+        expect(@merchant.favorite_customer).to eq(@favorite_customer)
+      end
+    end
   end
 
   describe "Class methods" do

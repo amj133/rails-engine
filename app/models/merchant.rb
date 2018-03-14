@@ -2,6 +2,7 @@ class Merchant < ApplicationRecord
   validates_presence_of :name, :created_at, :updated_at
   has_many :invoices
   has_many :items
+  has_many :customers, through: :invoices
 
   def self.random
     order('RANDOM()').first
@@ -14,6 +15,14 @@ class Merchant < ApplicationRecord
       .group(:id)
       .order("total_revenue DESC")
       .limit(quantity)
+  end
+
+  def favorite_customer
+    customers.select("customers.*, COUNT(transactions) AS transaction_count")
+      .joins(invoices: [:transactions])
+      .merge(Transaction.successful)
+      .group(:id)
+      .order("transaction_count DESC").first
   end
 
 end
