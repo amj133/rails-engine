@@ -7,8 +7,8 @@ describe "Invoice Relationship Endpoint Specs" do
     items = create_list(:item, 2, merchant: merchant)
     invoice = create(:invoice, merchant: merchant, customer: customer)
     invoice2 = create(:invoice, merchant: merchant, customer: customer)
-    create_list(:invoice_item, 2, invoice: invoice, item: items[0])
-    create_list(:invoice_item, 2, invoice: invoice, item: items[1])
+    create_list(:invoice_item, 1, invoice: invoice, item: items[0])
+    create_list(:invoice_item, 1, invoice: invoice, item: items[1])
     create_list(:transaction, 4, invoice: invoice)
     create_list(:transaction, 4, invoice: invoice2)
   end
@@ -47,7 +47,7 @@ describe "Invoice Relationship Endpoint Specs" do
     expect(items[0]['merchant_id']).to eq(1)
     expect(items[1]['id']).to eq(2)
     expect(items[1]['name']).to eq(nil)
-    expect(items[1]['merchant_id']).to eq(1)
+    expect(items[0]['merchant_id']).to eq(1)
   end
 
   it "should return related invoice items" do
@@ -57,15 +57,11 @@ describe "Invoice Relationship Endpoint Specs" do
 
     invoice_items = JSON.parse(response.body)
 
-    expect(invoice_items.count).to eq(4)
+    expect(invoice_items.count).to eq(2)
     expect(invoice_items[0]['id']).to eq(1)
     expect(invoice_items[0]['unit_price']).to eq(nil)
     expect(invoice_items[1]['id']).to eq(2)
     expect(invoice_items[1]['unit_price']).to eq(nil)
-    expect(invoice_items[2]['id']).to eq(3)
-    expect(invoice_items[2]['unit_price']).to eq(nil)
-    expect(invoice_items[3]['id']).to eq(4)
-    expect(invoice_items[3]['unit_price']).to eq(nil)
   end
 
   it "should return related transactions" do
