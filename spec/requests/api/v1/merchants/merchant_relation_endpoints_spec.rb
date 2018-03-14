@@ -29,5 +29,7 @@ describe "Relationship endpoints for merchants" do
     expect(merchant_invoices.first["id"]).to eq(1)
     expect(merchant_invoices.first["name"]).to eq(nil)
     expect(merchant_invoices.last["id"]).to eq(2)
-    expect(merchant_invoices.last["name"]).to eq(nil)  end
+    expect(merchant_invoices.last["name"]).to eq(nil)
+  end
+
 end
