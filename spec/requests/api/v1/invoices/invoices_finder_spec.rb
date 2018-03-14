@@ -77,6 +77,18 @@ describe "Invoices Finder API" do
     expect(invoice["id"]).to eq(11)
   end
 
+  describe "can find random" do
+    it "returns random invoice" do
+      get "/api/v1/invoices/random"
+
+      invoice = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(invoice.class).to be(Hash)
+      expect(invoice["id"].class).to be(Integer)
+    end
+  end
+
   describe "can find by multiple attributes" do
     it "can find by customer id and status" do
       get "/api/v1/invoices/find_all", params: {customer_id: 4, status: "pending"}
