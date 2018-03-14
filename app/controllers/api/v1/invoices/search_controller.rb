@@ -1,4 +1,4 @@
-class Api::V1::SearchController < ApplicationController
+class Api::V1::Invoices::SearchController < ApplicationController
 
   def index
     render json: Invoice.where(invoice_params)
