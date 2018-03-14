@@ -62,6 +62,7 @@ describe "Items finder API" do
       expect(response).to be_success
       expect(item.class).to eq(Hash)
       expect(item["id"]).to eq(2)
+      expect(item["formatted_price"]).to eq(15.50)
     end
 
     it "can find one item by merchant id" do
@@ -92,6 +93,18 @@ describe "Items finder API" do
       expect(response).to be_success
       expect(item.class).to eq(Hash)
       expect(item["id"]).to eq(2)
+    end
+  end
+
+  describe "can find random" do
+    it "returns random item" do
+      get "/api/v1/items/random"
+
+      item = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(item.class).to be(Hash)
+      expect(item["id"].class).to be(Integer)
     end
   end
 
