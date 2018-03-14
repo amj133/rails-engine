@@ -20,7 +20,7 @@ describe "Invoice Relationship Endpoint Specs" do
     merchant = JSON.parse(response.body)
 
     expect(merchant['id']).to eq(1)
-    expect(merchant['name']).to eq(nil)
+    expect(merchant['name']).to eq("Melagum McNahony the Wise Sitter")
   end
 
   it "should return related customer" do
@@ -31,7 +31,8 @@ describe "Invoice Relationship Endpoint Specs" do
     customer = JSON.parse(response.body)
 
     expect(customer['id']).to eq(1)
-    expect(customer['name']).to eq(nil)
+    expect(customer['first_name']).to eq("Leif")
+    expect(customer['last_name']).to eq("Erikson")
   end
 
   it "should return related items" do
