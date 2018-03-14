@@ -69,12 +69,24 @@ describe "Invoices Finder API" do
   end
 
   it "can find one invoice by updated_at" do
-    get "/api/v1/invoices/find?updated_at=2018-03-13T17:10:49.000Z  "
+    get "/api/v1/invoices/find?updated_at=2018-03-13T17:10:49.000Z"
 
     invoice = JSON.parse(response.body)
 
     expect(response).to be_success
     expect(invoice["id"]).to eq(11)
+  end
+
+  describe "can find random" do
+    it "returns random invoice" do
+      get "/api/v1/invoices/random"
+
+      invoice = JSON.parse(response.body)
+
+      expect(response).to be_success
+      expect(invoice.class).to be(Hash)
+      expect(invoice["id"].class).to be(Integer)
+    end
   end
 
   describe "can find by multiple attributes" do
