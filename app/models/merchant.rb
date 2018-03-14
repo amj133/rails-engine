@@ -6,8 +6,8 @@ class Merchant < ApplicationRecord
     order('RANDOM()').first
   end
 
-  def top_merchants_by_revenue(quantity)
-
+  def self.top_merchants_by_revenue(quantity)
+    select("merchants.*, SUM(invoice_items.quantity * invoice_items.unit_price) AS total_revenue").joins(invoices: [:transactions, :invoice_items]).group(:id).order("total_revenue DESC").limit(quantity)
   end
 
 end
