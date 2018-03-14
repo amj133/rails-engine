@@ -10,6 +10,8 @@ Rails.application.routes.draw do
       end
       resources :invoices, only: [:index, :show]
 
+      resources :items, only: [:index, :show]
+
       namespace :merchants do
         get '/:id/revenue', to: 'merchant_revenue#index'
         get '/find', to: 'finder#show'
@@ -38,4 +40,5 @@ Rails.application.routes.draw do
       resources :customers, only: [:show, :index]
     end
   end
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
