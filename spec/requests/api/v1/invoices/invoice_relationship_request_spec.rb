@@ -44,8 +44,10 @@ describe "Invoice Relationship Endpoint Specs" do
     expect(items.count).to eq(2)
     expect(items[0]['id']).to eq(1)
     expect(items[0]['name']).to eq(nil)
+    expect(items[0]['merchant_id']).to eq(1)
     expect(items[1]['id']).to eq(2)
     expect(items[1]['name']).to eq(nil)
+    expect(items[1]['merchant_id']).to eq(1)
   end
 
   it "should return related invoice items" do
@@ -72,7 +74,7 @@ describe "Invoice Relationship Endpoint Specs" do
     expect(response).to be_success
 
     transactions = JSON.parse(response.body)
-    binding.pry
+
     expect(transactions.count).to eq(4)
     expect(transactions[0]['id']).to eq(1)
     expect(transactions[0]['result']).to eq(nil)
