@@ -3,9 +3,17 @@ class Merchant < ApplicationRecord
   has_many :invoices
   has_many :items
   has_many :customers, through: :invoices
+  has_many :invoice_items, through: :invoices
 
   def self.random
     order('RANDOM()').first
+  end
+
+  def revenue
+    invoice_items
+      .joins(invoice: :transactions)
+      .merge(Transaction.successful)
+      .sum('unit_price * quantity')
   end
 
   def self.top_merchants_by_revenue(quantity)
