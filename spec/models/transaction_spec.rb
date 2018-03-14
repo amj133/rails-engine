@@ -13,7 +13,7 @@ RSpec.describe Transaction, type: :model do
   end
 
   describe "Scopes" do
-    it "default scope returns successful transactions" do
+    it "scope returns successful transactions" do
       customer = create(:customer)
       merchant = create(:merchant)
       invoice = create(:invoice, customer: customer, merchant: merchant)
@@ -22,7 +22,7 @@ RSpec.describe Transaction, type: :model do
       transaction_3 = create(:transaction, result: "pending", invoice: invoice)
       transaction_4 = create(:transaction, result: "success", invoice: invoice)
 
-      expect(Transaction.all).to eq([transaction_1, transaction_4])
+      expect(Transaction.successful).to eq([transaction_1, transaction_4])
     end
   end
 end
