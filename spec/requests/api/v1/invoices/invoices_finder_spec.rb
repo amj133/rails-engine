@@ -69,7 +69,7 @@ describe "Invoices Finder API" do
   end
 
   it "can find one invoice by updated_at" do
-    get "/api/v1/invoices/find?updated_at=2018-03-13T17:10:49.000Z  "
+    get "/api/v1/invoices/find?updated_at=2018-03-13T17:10:49.000Z"
 
     invoice = JSON.parse(response.body)
 
