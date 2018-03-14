@@ -55,7 +55,7 @@ describe "Items finder API" do
     end
 
     it "can find one item by unit price" do
-      get "/api/v1/items/find?unit_price=1550"
+      get "/api/v1/items/find?unit_price=15.50"
 
       item = JSON.parse(response.body)
 
