@@ -8,5 +8,5 @@ class Transaction < ApplicationRecord
     order('RANDOM()').first
   end
 
-  
+
 end
