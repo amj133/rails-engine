@@ -2,7 +2,7 @@ class Api::V1::Invoices::TransactionsController < ApplicationController
   before_action :set_invoice
 
   def index
-    render json: @invoice.transactions, each_serializer: SimpleTransactionsSerializer
+    render json: @invoice.transactions
   end
 
   private

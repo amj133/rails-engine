@@ -2,7 +2,7 @@ class Api::V1::Invoices::CustomerController < ApplicationController
   before_action :set_invoice
 
   def show
-    render json: @invoice.customer, serializer: SimpleCustomerSerializer
+    render json: @invoice.customer
   end
 
   private
