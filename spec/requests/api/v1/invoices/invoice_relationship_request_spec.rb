@@ -6,9 +6,11 @@ describe "Invoice Relationship Endpoint Specs" do
     customer = create(:customer)
     items = create_list(:item, 2, merchant: merchant)
     invoice = create(:invoice, merchant: merchant, customer: customer)
+    invoice2 = create(:invoice, merchant: merchant, customer: customer)
     create_list(:invoice_item, 2, invoice: invoice, item: items[0])
     create_list(:invoice_item, 2, invoice: invoice, item: items[1])
     create_list(:transaction, 4, invoice: invoice)
+    create_list(:transaction, 4, invoice: invoice2)
   end
   it "should return related merchant" do
     get '/api/v1/invoices/1/merchant'
@@ -53,7 +55,7 @@ describe "Invoice Relationship Endpoint Specs" do
 
     invoice_items = JSON.parse(response.body)
 
-    expect(invoice_items).to eq(4)
+    expect(invoice_items.count).to eq(4)
     expect(invoice_items[0]['id']).to eq(1)
     expect(invoice_items[0]['unit_price']).to eq(nil)
     expect(invoice_items[1]['id']).to eq(2)
@@ -70,8 +72,8 @@ describe "Invoice Relationship Endpoint Specs" do
     expect(response).to be_success
 
     transactions = JSON.parse(response.body)
-
-    expect(transactions).to eq(4)
+    binding.pry
+    expect(transactions.count).to eq(4)
     expect(transactions[0]['id']).to eq(1)
     expect(transactions[0]['result']).to eq(nil)
     expect(transactions[1]['id']).to eq(2)
