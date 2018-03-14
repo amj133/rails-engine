@@ -47,7 +47,7 @@ describe "Merchants with most revenue API finder" do
   end
 
   it "returns top x merchants by most revenue" do
-    get "api/v1/merchants/most_revenue?quantity=2"
+    get "/api/v1/merchants/most_revenue?quantity=2"
 
     expect(response).to be_success
 
@@ -56,5 +56,6 @@ describe "Merchants with most revenue API finder" do
     expect(merchants.count).to eq(2)
     expect(merchants.first["id"]).to eq(1)
     expect(merchants.last["id"]).to eq(2)
+    expect(response.status).to eq(200)
   end
 end
