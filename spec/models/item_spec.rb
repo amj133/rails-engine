@@ -43,7 +43,8 @@ RSpec.describe Item, type: :model do
         expect(Item.top_items_by_total_revenue(2).last).to eq(middle_item)
         expect(Item.top_items_by_total_revenue(1).last).to eq(top_item)
       end
-
+    end
+    describe "#most_items_sold" do
       it 'returns items by most sold' do
         merchant = create(:merchant)
         customer = create(:customer)
@@ -65,6 +66,32 @@ RSpec.describe Item, type: :model do
         create(:invoice_item, invoice: invoice4, item: item4, quantity: 2)
 
         expect(Item.most_items_sold(3)).to eq([item, item2, item3])
+      end
+    end
+  end
+
+  describe "Instance Methods" do
+    describe "#besy_day" do
+      before(:each) do
+        merchant = create(:merchant)
+        customer = create(:customer)
+        @item = create(:item, merchant: merchant)
+        invoice1 = create(:invoice, customer: customer, merchant: merchant, created_at: '2015-03-22T03:55:09.000Z')
+        invoice2 = create(:invoice, customer: customer, merchant: merchant, created_at: '2013-03-22T03:55:09.000Z')
+        invoice3 = create(:invoice, customer: customer, merchant: merchant, created_at: '2012-03-22T03:55:09.000Z')
+        invoice4 = create(:invoice, customer: customer, merchant: merchant, created_at: '2014-03-22T03:55:09.000Z')
+        create(:transaction, invoice: invoice1)
+        create(:transaction, invoice: invoice2)
+        create(:transaction, invoice: invoice3)
+        create(:transaction, invoice: invoice4)
+        create(:invoice_item, invoice: invoice1, item: @item, quantity: 100)
+        create(:invoice_item, invoice: invoice2, item: @item, quantity: 50)
+        create(:invoice_item, invoice: invoice3, item: @item, quantity: 30)
+        create(:invoice_item, invoice: invoice4, item: @item, quantity: 2)
+      end
+
+      it "returns date of best day" do
+        expect(@item.best_day.created_at).to eq('2015-03-22T03:55:09.000Z')
       end
     end
   end
