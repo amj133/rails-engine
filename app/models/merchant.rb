@@ -5,6 +5,8 @@ class Merchant < ApplicationRecord
   has_many :customers, through: :invoices
   has_many :invoice_items, through: :invoices
 
+  default_scope { order(:id) }
+
   def self.random
     order('RANDOM()').first
   end
@@ -19,7 +21,7 @@ class Merchant < ApplicationRecord
   def self.top_merchants_by_revenue(quantity)
     select("merchants.*, SUM(invoice_items.quantity * invoice_items.unit_price) AS total_revenue")
       .joins(invoices: [:transactions, :invoice_items])
-      .merge(Transaction.successful)
+      .merge(Transaction.unscoped.successful)
       .group(:id)
       .order("total_revenue DESC")
       .limit(quantity)
@@ -28,8 +30,9 @@ class Merchant < ApplicationRecord
   def favorite_customer
     customers
       .select("customers.*, COUNT(transactions) AS transaction_count")
-      .joins(invoices: [:transactions])
-      .merge(Transaction.successful)
+      .joins(invoices: :transactions)
+      .unscope(:order)
+      .merge(Transaction.unscoped.successful)
       .group(:id)
       .order("transaction_count DESC").first
   end
@@ -37,7 +40,7 @@ class Merchant < ApplicationRecord
   def self.merchants_with_most_items(quantity)
     select('merchants.*, SUM(invoice_items.quantity) AS items_sold')
       .joins(invoices: [:transactions, :invoice_items])
-      .merge(Transaction.successful)
+      .merge(Transaction.unscoped.successful)
       .group(:id)
       .order('items_sold DESC')
       .limit(quantity)

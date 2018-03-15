@@ -4,6 +4,8 @@ class Item < ApplicationRecord
   has_many :invoices, through: :invoice_items
   validates_presence_of :name, :description, :unit_price, :created_at, :updated_at
 
+  default_scope { order(:id) }
+
   def self.random
     order('RANDOM()').first
   end
