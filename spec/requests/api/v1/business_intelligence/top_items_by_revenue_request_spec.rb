@@ -1,11 +1,7 @@
 require 'rails_helper'
 
 describe "Top items by total revenue Finder API" do
-  it "returns top x items by total revenue" do
-    get "/api/v1/items/most_revenue?quantity=2"
-
-    items = JSON.parse(response.body)
-
+  before(:each) do
     customer = create(:customer)
     merchant = create(:merchant)
     invoice_1 = create(:invoice, customer: customer, merchant: merchant)
@@ -25,6 +21,12 @@ describe "Top items by total revenue Finder API" do
            quantity: 4, unit_price: 2, item: middle_item)
     create(:invoice_item, invoice: invoice_3,
            quantity: 6, unit_price: 2, item: bottom_item)
+  end
+
+  it "returns top x items by total revenue" do
+    get "/api/v1/items/most_revenue?quantity=2"
+
+    items = JSON.parse(response.body)
 
     expect(items.count).to eq(2)
     expect(items.first["id"]).to eq(1)
