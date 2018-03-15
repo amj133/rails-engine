@@ -43,6 +43,29 @@ RSpec.describe Item, type: :model do
         expect(Item.top_items_by_total_revenue(2).last).to eq(middle_item)
         expect(Item.top_items_by_total_revenue(1).last).to eq(top_item)
       end
+
+      it 'returns items by most sold' do
+        merchant = create(:merchant)
+        customer = create(:customer)
+        item = create(:item, merchant: merchant)
+        item2 = create(:item, merchant: merchant)
+        item3 = create(:item, merchant: merchant)
+        item4 = create(:item, merchant: merchant)
+        invoice1 = create(:invoice, customer: customer, merchant: merchant)
+        invoice2 = create(:invoice, customer: customer, merchant: merchant)
+        invoice3 = create(:invoice, customer: customer, merchant: merchant)
+        invoice4 = create(:invoice, customer: customer, merchant: merchant)
+        create(:transaction, invoice: invoice1)
+        create(:transaction, invoice: invoice2)
+        create(:transaction, invoice: invoice3)
+        create(:transaction, invoice: invoice4)
+        create(:invoice_item, invoice: invoice1, item: item, quantity: 100)
+        create(:invoice_item, invoice: invoice2, item: item2, quantity: 50)
+        create(:invoice_item, invoice: invoice3, item: item3, quantity: 30)
+        create(:invoice_item, invoice: invoice4, item: item4, quantity: 2)
+
+        expect(Item.most_items_sold(3)).to eq([item, item2, item3])
+      end
     end
   end
 end
