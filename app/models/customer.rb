@@ -3,6 +3,8 @@ class Customer < ApplicationRecord
   has_many :invoices
   has_many :merchants, through: :invoices
 
+  default_scope { order(:id) }
+
   def favorite_merchant
     merchants
       .select('merchants.*, COUNT(transactions) as transaction_count')
