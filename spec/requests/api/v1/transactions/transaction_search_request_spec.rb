@@ -92,8 +92,8 @@ describe "Transaction Search Api" do
     transactions = JSON.parse(response.body)
 
     expect(transactions.count).to eq(3)
-    expect(transactions[0]['id']).to eq(1)
+    expect(transactions[0]['id']).to eq(3)
     expect(transactions[1]['id']).to eq(2)
-    expect(transactions[2]['id']).to eq(3)
+    expect(transactions[2]['id']).to eq(1)
   end
 end

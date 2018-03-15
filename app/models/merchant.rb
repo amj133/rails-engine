@@ -32,5 +32,4 @@ class Merchant < ApplicationRecord
       .group(:id)
       .order("transaction_count DESC").first
   end
-
 end

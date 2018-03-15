@@ -9,5 +9,15 @@ class Transaction < ApplicationRecord
       .joins(invoice: [:customer])
       .where("customers.id = #{customer_id}")
       .order(:id)
+  end 
+
+  def self.total_revenue_for_date(date)
+    date = DateTime.strptime(date, '%Y-%m-%d')
+    select("SUM(invoice_items.quantity * invoice_items.unit_price) AS revenue")
+      .joins(invoice: [:invoice_items])
+      .merge(Transaction.successful)
+      .where(invoices: {updated_at: (date.beginning_of_day..date.end_of_day)})
+      .group(:id)
+      .sum(&:revenue) / 100.0
   end
 end

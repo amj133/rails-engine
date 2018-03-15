@@ -5,12 +5,12 @@ describe "Invoice Relationship Endpoint Specs" do
     merchant = create(:merchant)
     customer = create(:customer)
     items = create_list(:item, 2, merchant: merchant)
-    invoice = create(:invoice, merchant: merchant, customer: customer)
-    invoice2 = create(:invoice, merchant: merchant, customer: customer)
-    create_list(:invoice_item, 1, invoice: invoice, item: items[0])
-    create_list(:invoice_item, 1, invoice: invoice, item: items[1])
-    create_list(:transaction, 4, invoice: invoice)
-    create_list(:transaction, 4, invoice: invoice2)
+    invoice_1 = create(:invoice, merchant: merchant, customer: customer)
+    invoice_2 = create(:invoice, merchant: merchant, customer: customer)
+    create_list(:invoice_item, 1, invoice: invoice_1, item: items[0])
+    create_list(:invoice_item, 1, invoice: invoice_1, item: items[1])
+    create_list(:transaction, 4, invoice: invoice_1)
+    create_list(:transaction, 4, invoice: invoice_2)
   end
   it "should return related merchant" do
     get '/api/v1/invoices/1/merchant'
@@ -43,10 +43,10 @@ describe "Invoice Relationship Endpoint Specs" do
     items = JSON.parse(response.body)
 
     expect(items.count).to eq(2)
-    expect(items[0]['id']).to eq(1)
+    expect(items[0]['id']).to eq(2)
     expect(items[0]['name']).to eq('MyString')
     expect(items[0]['merchant_id']).to eq(1)
-    expect(items[1]['id']).to eq(2)
+    expect(items[1]['id']).to eq(1)
     expect(items[1]['name']).to eq('MyString')
     expect(items[1]['merchant_id']).to eq(1)
   end
