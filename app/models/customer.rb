@@ -9,6 +9,7 @@ class Customer < ApplicationRecord
     merchants
       .select('merchants.*, COUNT(transactions) as transaction_count')
       .joins(invoices: :transactions)
+      .unscope(:order)
       .group(:id)
       .order('transaction_count DESC')
       .first
