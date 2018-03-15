@@ -25,6 +25,8 @@ Rails.application.routes.draw do
       end
       resources :items, only: [:index, :show], module: :items do
         get '/best_day', to: 'best_day#show'
+        get '/invoice_items', to: 'invoice_items#index'
+        get '/merchant', to: 'merchant#show'
       end
 
       namespace :merchants do
