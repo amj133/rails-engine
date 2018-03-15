@@ -9,6 +9,5 @@ class Transaction < ApplicationRecord
       .joins(invoice: [:customer])
       .where("customers.id = #{customer_id}")
       .order(:id)
-      # .where(invoice: {customer: {id: "#{customer_id}"}})
   end
 end
