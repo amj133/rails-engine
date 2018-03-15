@@ -5,6 +5,8 @@ class Merchant < ApplicationRecord
   has_many :customers, through: :invoices
   has_many :invoice_items, through: :invoices
 
+  default_scope { order(:id) }
+
   def self.random
     order('RANDOM()').first
   end
