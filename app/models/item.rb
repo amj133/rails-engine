@@ -24,4 +24,15 @@ class Item < ApplicationRecord
       .order('items_sold DESC')
       .limit(quantity)
   end
+
+  def best_day
+    invoices
+      .select('invoices.created_at, SUM(invoice_items.quantity) as items_sold')
+      .joins(:transactions, :invoice_items)
+      .merge(Transaction.unscoped.successful)
+      .group(:id)
+      .order('items_sold DESC')
+      .first
+  end
+
 end
