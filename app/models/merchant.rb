@@ -43,4 +43,10 @@ class Merchant < ApplicationRecord
       .limit(quantity)
   end
 
+  def customer_with_pending_invoices
+    customers
+      joins(:invoices [:transactions])
+
+  end
+
 end
