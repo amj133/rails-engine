@@ -25,7 +25,6 @@ Rails.application.routes.draw do
       resources :items, only: [:index, :show]
 
       namespace :merchants do
-        get '/:id/revenue', to: 'merchant_revenue#index'
         get '/find', to: 'finder#show'
         get '/find_all', to: 'finder#index'
         get '/random', to: 'random#show'
@@ -33,6 +32,7 @@ Rails.application.routes.draw do
       end
 
       resources :merchants, only: [:show, :index], module: :merchants do
+        get '/revenue', to: 'revenue#show'
         get '/items', to: 'merchant_items#index'
         get '/invoices', to: 'merchant_invoices#index'
         get '/favorite_customer', to: 'merchant_customers#show'
