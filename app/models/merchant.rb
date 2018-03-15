@@ -14,6 +14,7 @@ class Merchant < ApplicationRecord
   def revenue
     invoice_items
       .joins(invoice: :transactions)
+      .unscope(:order)
       .merge(Transaction.successful)
       .sum('unit_price * quantity')
   end
@@ -22,6 +23,7 @@ class Merchant < ApplicationRecord
     select("merchants.*, SUM(invoice_items.quantity * invoice_items.unit_price) AS total_revenue")
       .joins(invoices: [:transactions, :invoice_items])
       .merge(Transaction.unscoped.successful)
+      .unscope(:order)
       .group(:id)
       .order("total_revenue DESC")
       .limit(quantity)
@@ -40,6 +42,7 @@ class Merchant < ApplicationRecord
   def self.merchants_with_most_items(quantity)
     select('merchants.*, SUM(invoice_items.quantity) AS items_sold')
       .joins(invoices: [:transactions, :invoice_items])
+      .unscope(:order)
       .merge(Transaction.unscoped.successful)
       .group(:id)
       .order('items_sold DESC')
@@ -49,7 +52,16 @@ class Merchant < ApplicationRecord
   def customer_with_pending_invoices
     customers
       joins(:invoices [:transactions])
+  end
 
+  def revenue_by_date(date)
+    date = DateTime.parse(date)
+    invoice_items
+      .joins(invoice: :transactions)
+      .unscope(:order)
+      .merge(Transaction.unscoped.successful)
+      .where(invoices: {updated_at: date.beginning_of_day..date.end_of_day})
+      .sum('unit_price * quantity')
   end
 
 end
