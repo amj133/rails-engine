@@ -1,5 +1,15 @@
 class Customer < ApplicationRecord
   validates_presence_of :first_name, :last_name, :created_at, :updated_at
-
   has_many :invoices
+  has_many :merchants, through: :invoices
+
+  def favorite_merchant
+    merchants
+      .select('merchants.*, COUNT(transactions) as transaction_count')
+      .joins(invoices: :transactions)
+      .group(:id)
+      .order('transaction_count DESC')
+      .first
+  end
+
 end
