@@ -31,6 +31,7 @@ class Item < ApplicationRecord
     invoices
       .select('invoices.created_at, SUM(invoice_items.quantity) as items_sold')
       .joins(:transactions, :invoice_items)
+      .unscope(:order)
       .merge(Transaction.unscoped.successful)
       .group(:id)
       .order('items_sold DESC')
