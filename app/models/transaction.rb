@@ -18,6 +18,6 @@ class Transaction < ApplicationRecord
       .merge(Transaction.successful)
       .where(invoices: {updated_at: (date.beginning_of_day..date.end_of_day)})
       .group(:id)
-      .sum(&:revenue)
+      .sum(&:revenue) / 100.0
   end
 end

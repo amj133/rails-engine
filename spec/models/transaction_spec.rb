@@ -57,7 +57,7 @@ RSpec.describe Transaction, type: :model do
 
     describe "#total_revenue_for_date" do
       it "returns total revenue across all merchants for given date" do
-        expect(Transaction.total_revenue_for_date("2012-03-16")).to eq(14)
+        expect(Transaction.total_revenue_for_date("2012-03-16")).to eq(0.14)
       end
     end
   end
