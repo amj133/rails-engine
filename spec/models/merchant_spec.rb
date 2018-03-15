@@ -20,7 +20,8 @@ RSpec.describe Merchant, type: :model do
       @merchant = create(:merchant)
       invoice_1 = create(:invoice,
                          customer: @favorite_customer,
-                         merchant: @merchant)
+                         merchant: @merchant,
+                         updated_at: '2015-03-22T03:55:09.000Z')
       invoice_2 = create(:invoice,
                          customer: regular_customer,
                          merchant: @merchant)
@@ -44,6 +45,11 @@ RSpec.describe Merchant, type: :model do
     describe "#favorite_customer" do
       it "returns customer with highest successful transactions" do
         expect(@merchant.favorite_customer).to eq(@favorite_customer)
+      end
+    end
+    describe "#revenue_by_date" do
+      it "returns total revenue based on date" do
+        expect(@merchant.revenue_by_date('2015-03-22')).to eq(10000)
       end
     end
   end
@@ -104,7 +110,7 @@ RSpec.describe Merchant, type: :model do
 
     describe "#merchants_with_most_items" do
       it "returns merchants with most items" do
-        expect(Merchant.merchants_with_most_items(2)).to eq([@top_merchant, @second_merchant])
+        expect(Merchant.merchants_with_most_items(2)).to eq([@second_merchant, @top_merchant])
       end
     end
   end
