@@ -22,7 +22,6 @@ Rails.application.routes.draw do
         get '/random', to: "random#show"
         get '/most_revenue', to: "items_by_revenue#index"
       end
-
       resources :items, only: [:index, :show]
 
       namespace :merchants do
@@ -31,7 +30,6 @@ Rails.application.routes.draw do
         get '/random', to: 'random#show'
         get '/most_revenue', to: "most_revenue#index"
       end
-
       resources :merchants, only: [:show, :index], module: :merchants do
         get '/revenue', to: 'revenue#show'
         get '/items', to: 'merchant_items#index'
@@ -54,8 +52,10 @@ Rails.application.routes.draw do
         get '/find_all', to: 'search#index'
         get '/random', to: 'random#show'
       end
-      resources :customers, only: [:show, :index]
+      resources :customers, only: [:show, :index], module: :customers do
+        get '/invoices', to: 'customer_invoices#index'
+      end
     end
   end
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
+# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
