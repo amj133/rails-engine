@@ -63,7 +63,7 @@ describe "Invoice Relationship Endpoint Specs" do
       expect(invoice_item['item_id']).to_not eq(nil)
       expect(invoice_item['quantity']).to eq(1)
       expect(invoice_item['unit_price']).to eq(1)
-    end 
+    end
   end
 
   it "should return related transactions" do
@@ -77,7 +77,7 @@ describe "Invoice Relationship Endpoint Specs" do
     transactions.each do |transaction|
       expect(transaction['invoice_id']).to eq(1)
       expect(transaction['result']).to eq('success')
-      expect(transaction['credit_card_number']).to eq(231412341341341)
+      expect(transaction['credit_card_number']).to eq("231412341341341")
     end
   end
 end

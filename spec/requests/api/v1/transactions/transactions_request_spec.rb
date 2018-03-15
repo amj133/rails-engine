@@ -16,7 +16,7 @@ describe 'transactions API' do
     transactions = JSON.parse(response.body)
     expect(transactions.count).to eq(3)
     transactions.each do |transaction|
-      expect(transaction['credit_card_number']).to eq(231412341341341)
+      expect(transaction['credit_card_number']).to eq("231412341341341")
       expect(transaction['result']).to eq("success")
     end
   end
