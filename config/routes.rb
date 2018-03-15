@@ -54,6 +54,7 @@ Rails.application.routes.draw do
       end
       resources :customers, only: [:show, :index], module: :customers do
         get '/invoices', to: 'customer_invoices#index'
+        get '/transactions', to: 'customer_transactions#index'
       end
     end
   end
