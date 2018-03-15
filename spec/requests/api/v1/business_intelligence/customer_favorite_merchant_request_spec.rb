@@ -18,6 +18,6 @@ describe "Customer Favorite Merchant API" do
     merchant = JSON.parse(response.body)
 
     expect(merchant['id']).to eq(1)
-    expect(merchant['name']).to eq('Favorito Lamorag')
+    expect(merchant['name']).to eq('Favorito Lamora')
   end
 end
