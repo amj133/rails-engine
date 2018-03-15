@@ -27,10 +27,18 @@ RSpec.describe Merchant, type: :model do
       invoice_3 = create(:invoice,
                          customer: @favorite_customer,
                          merchant: @merchant)
+      item = create(:item, merchant: @merchant)
       create(:transaction, invoice: invoice_1)
       create(:transaction, invoice: invoice_2)
       create(:transaction, invoice: invoice_3)
       create(:transaction, invoice: invoice_3, result: "failed")
+      create(:invoice_item, invoice: invoice_1, item: item, quantity: 5, unit_price: 2000)
+    end
+
+    describe "#revenue" do
+      it 'returns customers revenue' do
+        expect(@merchant.revenue).to eq(10000)
+      end
     end
 
     describe "#favorite_customer" do
