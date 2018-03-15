@@ -110,7 +110,7 @@ RSpec.describe Merchant, type: :model do
 
     describe "#merchants_with_most_items" do
       it "returns merchants with most items" do
-        expect(Merchant.merchants_with_most_items(2)).to eq([@top_merchant, @second_merchant])
+        expect(Merchant.merchants_with_most_items(2)).to eq([@second_merchant, @top_merchant])
       end
     end
   end
