@@ -4,4 +4,10 @@ class Transaction < ApplicationRecord
 
   scope :successful, -> { where(result: "success") }
 
+  def self.transactions_by_customer(customer_id)
+    select("transactions.*")
+      .joins(invoice: [:customer])
+      .where("customers.id = #{customer_id}")
+      .order(:id)
+  end
 end
