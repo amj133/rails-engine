@@ -49,7 +49,15 @@ class Merchant < ApplicationRecord
   def customer_with_pending_invoices
     customers
       joins(:invoices [:transactions])
+  end
 
+  def revenue_by_date(date)
+    date = DateTime.parse(date)
+    invoice_items
+      .joins(invoice: :transactions)
+      .merge(Transaction.unscoped.successful)
+      .where(invoices: {updated_at: date.beginning_of_day..date.end_of_day})
+      .sum('unit_price * quantity')
   end
 
 end
