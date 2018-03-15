@@ -25,4 +25,19 @@ RSpec.describe Transaction, type: :model do
       expect(Transaction.successful).to eq([transaction_1, transaction_4])
     end
   end
+
+  describe "Class methods" do
+    before(:all) do
+      customer = create(:customer)
+      merchant = create(:merchant)
+      invoice = create(:invoice, customer: customer, merchant: merchant)
+      @transactions = create_list(:transaction, 2, invoice: invoice)
+    end
+
+    describe "#transactions_by_customer" do
+      it "returns transactions for given customer" do
+        expect(Transaction.transactions_by_customer(1)).to eq(@transactions)
+      end
+    end
+  end
 end
