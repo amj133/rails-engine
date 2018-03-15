@@ -11,9 +11,17 @@ class Item < ApplicationRecord
   def self.top_items_by_total_revenue(quantity)
     select("items.*, SUM(invoice_items.quantity * invoice_items.unit_price) AS revenue")
       .joins(invoice_items: [invoice: [:transactions]])
-      .merge(Transaction.successful)
+      .merge(Transaction.unscoped.successful)
       .group(:id)
       .order("revenue DESC")
+      .limit(quantity)
+  end
+
+  def self.most_items_sold(quantity)
+    select('items.*, SUM(invoice_items.quantity) AS items_sold')
+      .joins(:invoice_items)
+      .group(:id)
+      .order('items_sold DESC')
       .limit(quantity)
   end
 end
