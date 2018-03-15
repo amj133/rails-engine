@@ -26,10 +26,21 @@ class Merchant < ApplicationRecord
   end
 
   def favorite_customer
-    customers.select("customers.*, COUNT(transactions) AS transaction_count")
+    customers
+      .select("customers.*, COUNT(transactions) AS transaction_count")
       .joins(invoices: [:transactions])
       .merge(Transaction.successful)
       .group(:id)
       .order("transaction_count DESC").first
   end
+
+  def self.merchants_with_most_items(quantity)
+    select('merchants.*, SUM(invoice_items.quantity) AS items_sold')
+      .joins(invoices: [:transactions, :invoice_items])
+      .merge(Transaction.successful)
+      .group(:id)
+      .order('items_sold DESC')
+      .limit(quantity)
+  end
+
 end

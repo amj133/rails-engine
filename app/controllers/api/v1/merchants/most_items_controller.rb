@@ -1,0 +1,8 @@
+class Api::V1::Merchants::MostItemsController < ApplicationController
+
+  def index
+    render json: Merchant.merchants_with_most_items(params['quantity'].to_i)
+  end
+
+
+end
