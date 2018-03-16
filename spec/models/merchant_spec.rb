@@ -59,9 +59,9 @@ RSpec.describe Merchant, type: :model do
       end
     end
 
-    describe "#customer_with_pending_invoices" do
+    describe "#customers_with_pending_invoices" do
       it "returns customers with pending invoices" do
-        expect(@merchant.customer_with_pending_invoices).to eq([@pending_customer])
+        expect(@merchant.customers_with_pending_invoices).to eq([@pending_customer])
       end
     end
   end

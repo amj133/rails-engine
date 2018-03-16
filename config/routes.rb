@@ -43,6 +43,7 @@ Rails.application.routes.draw do
         get '/items', to: 'merchant_items#index'
         get '/invoices', to: 'merchant_invoices#index'
         get '/favorite_customer', to: 'merchant_customers#show'
+        get '/customers_with_pending_invoices', to: "merchant_pending_customers#index"
       end
 
       namespace :transactions do

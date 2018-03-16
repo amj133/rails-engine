@@ -1,11 +1,11 @@
 class Api::V1::Invoices::SearchController < ApplicationController
 
   def index
-    render json: Invoice.where(invoice_params)
+    render json: Invoice.where(invoice_params), each_serializer: InvoiceSerializer
   end
 
   def show
-    render json: Invoice.find_by(invoice_params)
+    render json: Invoice.find_by(invoice_params), serializer: InvoiceSerializer
   end
 
   private
