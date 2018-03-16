@@ -1,4 +1,27 @@
-#Rails Engine
+# Rails Engine
 
 ## Database Design / Schema
 ![alt text](public/schema.png)
+
+## Setup
+To run the rails engine on your local machine, please use the following setup steps:
+
+* Clone down the repo onto your local machine
+```
+$ git clone https://github.com/amj133/rails-engine.git
+```
+* Navigate to the rails-engine directory and run the following commands in the terminal
+```
+$ rails db:create
+$ rails db:migrate
+$ rake load_sales_data:all
+```
+* If you wish to import specific data please run any of these commands for the specific type you would like
+```
+$ rake load_sales_date:load_all_merchants       # for all merchants
+$ rake load_sales_date:load_all_customers       # for all customers
+$ rake load_sales_date:load_all_invoices        # for all invoices
+$ rake load_sales_date:load_all_items           # for all items
+$ rake load_sales_date:load_all_invoice_items   # for all invoice items
+$ rake load_sales_date:load_all_transactions    # for all transactions
+```
