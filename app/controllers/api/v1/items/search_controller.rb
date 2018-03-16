@@ -6,6 +6,7 @@ class Api::V1::Items::SearchController < ApplicationController
   end
 
   def show
+    binding.pry
     render json: Item.find_by(item_params)
   end
 
@@ -18,7 +19,7 @@ class Api::V1::Items::SearchController < ApplicationController
   end
 
   def price_to_cents
-    params["unit_price"] = item_params["unit_price"].to_f * 100 unless params["unit_price"].nil?
+    params["unit_price"] = (item_params["unit_price"].to_f * 100).round(2) unless params["unit_price"].nil?
   end
 
 end
