@@ -17,6 +17,7 @@ RSpec.describe Merchant, type: :model do
     before(:each) do
       @favorite_customer = create(:customer)
       regular_customer = create(:customer)
+      @pending_customer = create(:customer, first_name: "bob", last_name: "smith")
       @merchant = create(:merchant)
       invoice_1 = create(:invoice,
                          customer: @favorite_customer,
@@ -28,11 +29,15 @@ RSpec.describe Merchant, type: :model do
       invoice_3 = create(:invoice,
                          customer: @favorite_customer,
                          merchant: @merchant)
+      invoice_4 = create(:invoice,
+                         customer: @pending_customer,
+                         merchant: @merchant)
       item = create(:item, merchant: @merchant)
       create(:transaction, invoice: invoice_1)
       create(:transaction, invoice: invoice_2)
       create(:transaction, invoice: invoice_3)
       create(:transaction, invoice: invoice_3, result: "failed")
+      create(:transaction, invoice: invoice_4, result: "failed")
       create(:invoice_item, invoice: invoice_1, item: item, quantity: 5, unit_price: 2000)
     end
 
@@ -47,9 +52,16 @@ RSpec.describe Merchant, type: :model do
         expect(@merchant.favorite_customer).to eq(@favorite_customer)
       end
     end
+
     describe "#revenue_by_date" do
       it "returns total revenue based on date" do
         expect(@merchant.revenue_by_date('2015-03-22')).to eq(10000)
+      end
+    end
+
+    describe "#pending_customers" do
+      it "returns customers with pending invoices" do
+        expect(@merchant.pending_customers).to eq([@pending_customer])
       end
     end
   end

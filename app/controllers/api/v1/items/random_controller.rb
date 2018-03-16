@@ -1,7 +1,7 @@
 class Api::V1::Items::RandomController < ApplicationController
 
   def show
-    render json: Item.random
+    render json: Item.random, serializer: ItemSerializer
   end
 
 end
