@@ -5,4 +5,8 @@ class InvoiceItem < ApplicationRecord
   validates_presence_of :quantity, :unit_price, :created_at, :updated_at
 
   default_scope { order(:id) }
+
+  def self.random
+    order('RANDOM()').first
+  end
 end
