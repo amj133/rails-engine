@@ -6,7 +6,6 @@ class Api::V1::Items::SearchController < ApplicationController
   end
 
   def show
-    binding.pry
     render json: Item.find_by(item_params)
   end
 
