@@ -7,8 +7,8 @@ class Api::V1::Merchants::MostItemsController < ApplicationController
 
   private
 
-  def set_merchants
-    @merchants = Merchant.merchants_with_most_items(params['quantity'].to_i)
-  end
+    def set_merchants
+      @merchants = Merchant.merchants_with_most_items(params['quantity'].to_i)
+    end
 
 end
