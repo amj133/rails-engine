@@ -17,11 +17,6 @@ Rails.application.routes.draw do
         get '/items', to: 'items#index'
       end
 
-      resources :invoice_items, only: [:index, :show], module: :invoice_items do
-        get '/item', to: 'item#show'
-        get '/invoice', to: 'invoice#show'
-      end
-
       namespace :items do
         get '/find', to: "search#show"
         get '/find_all', to: "search#index"
@@ -76,7 +71,10 @@ Rails.application.routes.draw do
         get '/find_all', to: 'search#index'
         get '/random', to: 'random#show'
       end
-      resources :invoice_items, only: [:show, :index]
+      resources :invoice_items, only: [:index, :show], module: :invoice_items do
+        get '/item', to: 'item#show'
+        get '/invoice', to: 'invoice#show'
+      end
     end
   end
 end
