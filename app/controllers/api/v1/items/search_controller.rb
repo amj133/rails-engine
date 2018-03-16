@@ -2,11 +2,11 @@ class Api::V1::Items::SearchController < ApplicationController
   before_action :price_to_cents, only: [:show, :index]
 
   def index
-    render json: Item.where(item_params)
+    render json: Item.where(item_params), each_serializer: ItemSerializer
   end
 
   def show
-    render json: Item.find_by(item_params)
+    render json: Item.find_by(item_params), serializer: ItemSerializer
   end
 
   private

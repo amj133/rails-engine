@@ -62,7 +62,7 @@ describe "Items finder API" do
       expect(response).to be_success
       expect(item.class).to eq(Hash)
       expect(item["id"]).to eq(2)
-      expect(item["unit_price"]).to eq(15.50)
+      expect(item["unit_price"]).to eq("15.50")
     end
 
     it "can find one item by merchant id" do

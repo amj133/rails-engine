@@ -9,7 +9,7 @@ describe "Invoice items finder API" do
     invoice_2 = create(:invoice, merchant: merchant, customer: customer)
     create(:invoice_item,
            quantity: 1,
-           unit_price: 5,
+           unit_price: 500,
            invoice: invoice_1,
            item: item,
            created_at: DateTime.new(2018, 03, 12, 17, 10, 49),

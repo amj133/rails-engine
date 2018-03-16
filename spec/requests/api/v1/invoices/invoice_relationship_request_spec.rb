@@ -62,12 +62,12 @@ describe "Invoice Relationship Endpoint Specs" do
     invoice_items.each do |invoice_item|
       expect(invoice_item['item_id']).to_not eq(nil)
       expect(invoice_item['quantity']).to eq(1)
-      expect(invoice_item['unit_price']).to eq(1)
+      expect(invoice_item['unit_price']).to eq("0.01")
     end
     expect(invoice_items[0]['id']).to eq(1)
-    expect(invoice_items[0]['unit_price']).to eq(1)
+    expect(invoice_items[0]['unit_price']).to eq("0.01")
     expect(invoice_items[1]['id']).to eq(2)
-    expect(invoice_items[1]['unit_price']).to eq(1)
+    expect(invoice_items[1]['unit_price']).to eq("0.01")
   end
 
   it "should return related transactions" do
