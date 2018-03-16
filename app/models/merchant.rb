@@ -51,7 +51,7 @@ class Merchant < ApplicationRecord
 
   def customer_with_pending_invoices
     customers
-      joins(:invoices [:transactions])
+      .find_by_sql("SELECT customers. *FROM customers INNER JOIN invoices ON customers.id = invoices.customer_id INNER JOIN transactions ON transactions.invoice_id = invoices.id WHERE transactions.result = 'failed' AND invoices.merchant_id = #{self.id} EXCEPT SELECT customers.* FROM customers INNER JOIN invoices ON customers.id = invoices.customer_id INNER JOIN transactions ON transactions.invoice_id = invoices.id WHERE transactions.result = 'success' AND invoices.merchant_id = #{self.id}")
   end
 
   def revenue_by_date(date)
