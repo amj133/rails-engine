@@ -1,4 +1,16 @@
-# Rails Engine
+# Rails Sales Engine
+## Application Overview
+This application is designed to execute business analytic queries against an actual e-commerce business dataset (sanitized).  
+A JSON API is built using Rails and ActiveRecord which exposes the relationships within the database and peforms complex analytic queries.  This is a collaborative project between Joseph Jobes and Andrew Jeffery while attending the Back End Engineering Program at the Turing School of Software & Design.  
+
+## Interacting with the API
+### Resources to be displayed:
+* Merchants
+* Customers
+* Invoices
+* Items
+* Invoice Items
+* Transactions
 
 ## Database Design / Schema
 ![alt text](public/schema.png)
