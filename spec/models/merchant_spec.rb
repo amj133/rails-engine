@@ -17,7 +17,7 @@ RSpec.describe Merchant, type: :model do
     before(:each) do
       @favorite_customer = create(:customer)
       regular_customer = create(:customer)
-      @pending_customer = create(:customer)
+      @pending_customer = create(:customer, first_name: "bob", last_name: "smith")
       @merchant = create(:merchant)
       invoice_1 = create(:invoice,
                          customer: @favorite_customer,
@@ -59,9 +59,9 @@ RSpec.describe Merchant, type: :model do
       end
     end
 
-    describe "#customers_with_pending_invoices" do
+    describe "#pending_customers" do
       it "returns customers with pending invoices" do
-        expect(@merchant.customers_with_pending_invoices).to eq([@pending_customer])
+        expect(@merchant.pending_customers).to eq([@pending_customer])
       end
     end
   end

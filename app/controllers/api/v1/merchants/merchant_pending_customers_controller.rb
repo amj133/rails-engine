@@ -2,7 +2,7 @@ class Api::V1::Merchants::MerchantPendingCustomersController < ApplicationContro
   before_action :set_merchant
 
   def index
-    render json: @merchant.customers_with_pending_invoices, each_serializer: CustomerSerializer
+    render json: @merchant.pending_customers, each_serializer: CustomerSerializer
   end
 
   private

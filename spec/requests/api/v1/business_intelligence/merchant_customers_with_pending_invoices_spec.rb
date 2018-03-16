@@ -2,8 +2,8 @@ require 'rails_helper'
 
 describe "Merchant customers with pending invoice" do
   before(:each) do
-    create_list(:customer, 2)
-    @pending_customer = create(:customer)
+    regular_customer = create(:customer)
+    @pending_customer = create(:customer, first_name: "bob", last_name: "smith")
     paid_customer = create(:customer)
     merchant = create(:merchant)
     invoice_1 = create(:invoice,
@@ -15,9 +15,14 @@ describe "Merchant customers with pending invoice" do
     invoice_3 = create(:invoice,
                        customer: @pending_customer,
                        merchant: merchant)
+    invoice_4 = create(:invoice,
+                       customer: regular_customer,
+                       merchant: merchant)
     item = create(:item, merchant: merchant)
     create(:transaction, invoice: invoice_1)
     create(:transaction, invoice: invoice_2, result: "failed")
+    create(:transaction, invoice: invoice_3, result: "success")
+    create(:transaction, invoice: invoice_4, result: "success")
   end
 
   it "returns all customers with pending invoices for given merchant" do
