@@ -125,5 +125,5 @@ The URL's below will display business analytics for specified resources:
   * GET /api/v1/items/:id/best_day returns the date with the most sales for the given item using the invoice date.
   
 ## Authors
-Joseph Jobes @AtmaVichara
-Andrew Jeffery @amj333
+#### Joseph Jobes @AtmaVichara
+#### Andrew Jeffery @amj333
